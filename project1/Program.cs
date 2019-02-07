@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace project1
 {
+
+
     class Program
     {
         static void Main(string[] args)
@@ -83,6 +85,8 @@ namespace project1
             //lists of players
             List<Player> playerList = new List<Player>();
             List<Player> coachPicks = new List<Player>();
+            int moneyLeft = 95000000;
+            int moneySpent = 0;
 
             //going thru the arrays to fill int the list
             for (var i = 0; i < 8; i++)
@@ -117,9 +121,12 @@ namespace project1
                 {
                     if (playerList[i].idNumber == pick)
                     {
-                            coachPicks.Add(playerList[i]);
-                            playerList.RemoveAt(i);
+                        coachPicks.Add(playerList[i]);
+                        moneyLeft = moneyLeft - playerList[i].salary;
+                        moneySpent = moneySpent + playerList[i].salary;
+                        playerList.RemoveAt(i);
                     }
+
 
                 }
 
@@ -129,10 +136,12 @@ namespace project1
 
             } //end WHILE
 
-
-
-
-
+            Console.WriteLine("--------------------------------------------------------------------------\nYou've drafted:");
+            foreach (Player i in coachPicks) {
+                Console.WriteLine(i.ToString());
+            }
+            Console.WriteLine("\nYou've spent $" + moneySpent);
+            Console.WriteLine("\nYou have $" + moneyLeft + " left to spend");
             Console.ReadLine();
 
 
@@ -152,35 +161,5 @@ namespace project1
 
 
     }//end of class Program
-
-    class Player
-    {
-        public int idNumber { get; set; }
-        public string name { get; set; }
-        public string position { get; set; }
-        public string school { get; set; }
-        public int salary { get; set; }
-        public string ranking { get; set; }
-
-
-        public Player(string name, string position, string school, int salary, string ranking, int idNumber)
-        {
-            this.idNumber = idNumber;
-            this.name = name;
-            this.position = position;
-            this.school = school;
-            this.salary = salary;
-            this.ranking = ranking;
-        }
-
-        public override string ToString()
-        {
-            return String.Format(idNumber + ". " + name + " (" + ranking + ") " + position + " - " + school + " - " + "$" + salary);
-        }
-
-
-
-
-    }//end of class Player
 
 }
