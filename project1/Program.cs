@@ -78,13 +78,14 @@ namespace project1
                 {"The Best", "2nd Best", "3rd Best", "4th Best", "5th Best"},
                 {"The Best", "2nd Best", "3rd Best", "4th Best", "5th Best"},
                 {"The Best", "2nd Best", "3rd Best", "4th Best", "5th Best"},
-                {"The Best", "2nd Best", "3rd Best", "4th Best", "5th Best"},
+                {"The Best", "2nd Best", "3rd Best", "4th Best", "5th Best"}
             };
-
 
             //lists of players
             List<Player> playerList = new List<Player>();
             List<Player> coachPicks = new List<Player>();
+
+            //salary variables
             int moneyLeft = 95000000;
             int moneySpent = 0;
 
@@ -98,15 +99,15 @@ namespace project1
                 }
             }
 
-            //greeting message - start the program
+            // GREETING to user
             Greeting();
 
-            /**    while loop     */
+            /**   THE DRAFT   **/
 
             string start = Console.ReadLine();
             string EXIT = "x"; //sentinel value
 
-            while (start != EXIT)  
+            while (start != EXIT)
             {
                 Console.Clear();
 
@@ -117,6 +118,7 @@ namespace project1
 
                 int pick = Convert.ToInt32(Console.ReadLine());
 
+
                 for (int i = playerList.Count - 1; i >= 0; i--)
                 {
                     if (playerList[i].idNumber == pick)
@@ -126,27 +128,49 @@ namespace project1
                         moneySpent = moneySpent + playerList[i].salary;
                         playerList.RemoveAt(i);
                     }
-
-
+                 
                 }
-
-                Console.WriteLine("To make another pick press 'Enter', to end draft press 'x'");
-                start = Console.ReadLine();
-
+                if (moneyLeft <= 0)
+                {
+                    Console.WriteLine("You have exceeded past your salary cap, press 'Enter' to exit");
+                    start = "x";
+                    Console.ReadLine();
+                }
+                else
+                {
+                    if (coachPicks.Count >= 5)
+                    {
+                        start = "x";
+                    }
+                    else
+                    {
+                        Console.WriteLine("--------------------------------------------------------------------------\nYou've drafted:");
+                        foreach (Player i in coachPicks)
+                        {
+                            Console.WriteLine(i.ToString());
+                        }
+                        Console.WriteLine("\nYou have spent $" + moneySpent);
+                        Console.WriteLine("and you have $" + moneyLeft + " left for signing bonuses");
+                        Console.WriteLine("--------------------------------------------------------------------------");
+                        Console.WriteLine("To make another pick press 'Enter', to end draft press 'x'");
+                        start = Console.ReadLine();
+                    }
+                }
 
             } //end WHILE
 
             Console.WriteLine("--------------------------------------------------------------------------\nYou've drafted:");
-            foreach (Player i in coachPicks) {
+            foreach (Player i in coachPicks)
+            {
                 Console.WriteLine(i.ToString());
             }
-            Console.WriteLine("\nYou've spent $" + moneySpent);
-            Console.WriteLine("\nYou have $" + moneyLeft + " left to spend");
+
+            Console.WriteLine("\nYour total spent is $" + moneySpent);
+            Console.WriteLine("\nYou have $" + moneyLeft + " left for signing bonuses !");
+            Closing();
             Console.ReadLine();
 
-
         }// end of MAIN
-
 
         static void Greeting()
         {
@@ -154,12 +178,10 @@ namespace project1
             Console.WriteLine("To begin, press 'Enter'\n");
         }
 
-        static void Chart()
+        static void Closing()
         {
-            Console.WriteLine("");
+            Console.WriteLine("--------------------------------------------------------------------------\n");
+            Console.WriteLine("Thank you for using the NFL draft picker !\nTo exit press 'Enter'");
         }
-
-
-    }//end of class Program
-
+    }
 }

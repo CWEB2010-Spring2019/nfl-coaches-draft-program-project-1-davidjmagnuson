@@ -10,7 +10,6 @@ namespace project1
         public int salary { get; set; }
         public string ranking { get; set; }
 
-
         public Player(string name, string position, string school, int salary, string ranking, int idNumber)
         {
             this.idNumber = idNumber;
@@ -25,9 +24,5 @@ namespace project1
         {
             return String.Format(idNumber + ". " + name + " (" + ranking + ") " + position + " - " + school + " - " + "$" + salary);
         }
-
-
-
-
     }//end of class Player
 }
